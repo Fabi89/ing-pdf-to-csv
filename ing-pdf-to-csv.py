@@ -13,8 +13,10 @@ logging.basicConfig(filename=f"log/run.log",
                     level=logging.DEBUG)
 
 date_pattern = r'\d\d\.\d\d\.\d\d\d\d'
-first_line_pattern = r'\s+(%s)\s+(.*)\s+(-?[\d.]*\d{1,3},\d\d)' % date_pattern
-sec_line_pattern = rf'\s+({date_pattern})(\s+(.*))?'
+# <spaces><date><spaces><type originator><spaces><value (TODO: improve value regex for dot splits)><optional footnote>
+first_line_pattern = r'\s{3,}(%s)\s{3,}(.*)\s{3,}(-?[\d.]*\d{1,3},\d\d)\d?' % date_pattern
+# <spaces><date><spaces><optional transaction text>
+sec_line_pattern = r'\s{3,}(%s)(\s{3,}(.*))?' % date_pattern
 
 
 class Transaction:
@@ -92,9 +94,11 @@ for fn in sys.argv[1:]:
                 if match:
                     transaction.add_second_line(match)
                 elif transaction.has_second_line and transaction.second_line_index > 0:
-                    # match only lines, that start with correct number of spaces (aligned with second line <text>
-                    # and do not end with value
-                    match = re.match(r'^ {%d}(\w.*)' % transaction.second_line_index, line)  # (?!\s+-?\d+,\d\d$)
+                    # pattern: <spaces until second line text first index><further transaction text>
+                    # in words: match only lines, that start with correct number of spaces
+                    # (aligned with second line <text>) followed by meaningful text sign
+                    # (TODO: improve regex for text to match all possible texts, but it should be sufficient like this)
+                    match = re.match(r'^ {%d}(\w.*)' % transaction.second_line_index, line)
                     if match:
                         transaction.add_further_line(match)
 

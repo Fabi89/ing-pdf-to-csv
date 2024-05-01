@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "mkoderer-ing-pdf-to-csv"
+version = "0.1.0"
+description = "Transforms an ING DiBa PDF (Kontoauszug) into a CSV file."
+authors = [
+    "mkoderer <https://github.com/mkoderer>",
+    "Fabian Todt <f.todt@senec.com>",
+]
+readme = "README.md"
+packages = [
+    { include = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pdftotext = "^2.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

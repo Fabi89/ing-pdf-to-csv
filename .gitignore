@@ -1,6 +1,6 @@
-data/
-output/
-log/
+data/*
+output/*
+log/*
 *.csv
 *.pdf
 

@@ -11,19 +11,28 @@ I can not confirm that, because I don't know or use it. Have a try.
 
 ## Unix
 
+### Poetry Project
+
+This project is powered by `poetry`.
+All examples are based on `poetry` and an initial `poetry install` call.
+You can enter `poetry`s virtual environment by `poetry shell`.
+`poetry` manages your virtual environment itself, so if you prefix your project-specific commands with `poetry run`, you should not get into touch with environment handling.
+
 ### Install
 
-Preferably run with `poetry` (all examples are based on this) or set up your local virtual environment (once do e.g. `python3 -m venv .venv`) and enter virtual environment (`. .venv/bin/activate`).
+Make sure your system has all prerequisites of `pdftotext` installed, see [PyPI package#OS Dependencies](https://pypi.org/project/pdftotext/).
 
-If not already done, install `pdftotext` like
+Once, install `pdftotext` and other dependencies by `poetry` with
 
 ```bash
-poetry add pdftotext
-# or in virtual env
-pip install pdftotext
+# poetry
+poetry install
 ```
 
 ### Add Data
+
+I keep my ING data out of the project, but want to have the used sources near the results, so I use the git ignored `data` and `output` directories.
+This is not necessary and should be easy to skip by changing the `main.py` call described later to your needs.
 
 ```bash
 ING_YEAR=2023
